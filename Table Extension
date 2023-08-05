@@ -1,0 +1,6 @@
+Angular Material Table Extension
+
+We build a data grid by extending the Angular Material Table component. It's open source with MIT license. It is similar to ag-grid, but with fewer features at the moment.
+
+https://github.com/fastcode-inc/custom-table-doc
+https://www.npmjs.com/package/mat-table-ext

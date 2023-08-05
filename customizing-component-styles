@@ -1,0 +1,25 @@
+Angular uses “shadow DOM” in components. What this means is that any styles in a component (s)css file only apply to that component. This is a huge benefit for compartmentalization, but it can make styling third party components tricky.
+
+The first step is to check the third party documentation. Did they expose any (s)css variables or component inputs that can be used to tweak the styles? Are they using CSS “parts” that can be targeted in declarations?
+
+If none if those options are available then you have a few options remaining:
+
+    Use “important” if necessary. Avoid it if possible.
+
+2.Use :host to pierce the shadow DOM (google search will tell you more). Many will point out that it is “deprecated”, but only in the sense that the Angular team is letting everyone know that this is likely to change when the W3C approves an official alternative (it has been years and they haven’t).
+
+3. Use global styles (styles.(s)css). Anything in there will not be blocked by shadow DOM.
+
+4. Turn off ViewEncapsulation (shadow DOM) for the parent component. Avoid this if possible.
+
+
+
+Two other points to add:
+
+    Try to qualify the overwritten 3rd party class with an addition of your own class in whatever element you can. I forget the exact SCSS syntax, but something like myclass > . material-class-being-overwritten. So if you are overriding that class, try wrapping it in a span or something and give it myclass. This will help make sure that this style override doesn't apply to unwanted places.
+
+    As per the point above about Material someday updating the names and structure of their internal classes, Material 15 for Angular 15 had a lot of breaking changes in their internal style names and that has been causing some headaches for some projects that have been overriding Material classes.
+
+My first point on qualifying your overrides should help track down style hacks in the event your project hasn't been updated to 15 yet and the Material classes happen to change.
+
+All of this is to say that the person I am responding to made an important point that makes my last two tips irrelevant: only override 3rd party classes if you have exhausted better more supported options. This is the official Material guide that expands on how to customize them in supported ways https://material.angular.io/guide/customizing-component-styles
